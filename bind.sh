@@ -10,7 +10,7 @@ if [ $# -ne 1 ]; then
 fi
 
 INV_INC_HOME_DIR=$(readlink -f "$1")
-#echo $INV_INC_HOME_DIR
+echo $INV_INC_HOME_DIR
 
 if [ -d "$INV_INC_HOME_DIR_LINK" ]; then
 	if [ "$(readlink -f "$INV_INC_HOME_DIR_LINK")" = "$INV_INC_HOME_DIR" ]; then
@@ -23,7 +23,9 @@ if [ -d "$INV_INC_HOME_DIR_LINK" ]; then
     read -p "Do you want to rebind to a new location (y/n)? " answer
     case ${answer:0:1} in
         y|Y )
-			. shell/unbind.sh
+			echo "Removing link"
+			rm "$INV_INC_HOME_DIR_LINK"
+			echo "Done"
         ;;
         * )
             echo "Binding aborted"
@@ -46,7 +48,7 @@ fi
 ######### BIND PHASE ##########
 
 echo "Binding"
-
+echo $INV_INC_HOME_DIR
 INV_INC_HOME_DIR_WINPATH=$(cygpath -w "$INV_INC_HOME_DIR")
 INV_INC_HOME_DIR_LINK_WINPATH=$(cygpath -w "$(readlink -f "$INV_INC_HOME_DIR_LINK")")
 #echo "$INV_INC_HOME_DIR_WINPATH"
