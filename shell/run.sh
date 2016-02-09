@@ -8,10 +8,8 @@ fi
 ################################
 ######### CHECK PHASE ##########
 
-#RUN_TYPE="debug" # or release
-
-if [ $# -ne 1 ] || ([ "$1" != "debug" ] && [ "$1" != "release" ]); then
-    echo "Use: run debug|release"
+if [ $# -ne 1 ] || ([ "$1" != "debug" ] && [ "$1" != "release" ] && [ "$1" != "steam" ]); then
+    echo "Use: run debug|release|steam"
     exit 1
 else
     RUN_TYPE=$1
@@ -49,6 +47,17 @@ echo "Starting InvisibleInc"
 cd "$INV_INC_HOME_DIR"
 "$INV_INC_EXECUTABLE"
 cd -
+
+if [ "$RUN_TYPE" = "steam" ]; then
+	sleep $TIME_TO_WAIT_FOR_INV_INC_PROCESS
+
+	# do while emulation
+	while : ; do
+		cmd /c "tasklist /fi \"IMAGENAME eq $INV_INC_EXECUTABLE_NAME\" | findstr /i /n $INV_INC_EXECUTABLE_NAME"
+		[[ "$?" -eq 0 ]] || break
+		sleep $INV_INC_PROCESS_IS_RUNNING_CHECK_PERIOD
+	done
+fi
 
 ################################
 ########### RESTORE ############

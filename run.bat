@@ -13,5 +13,5 @@ if errorlevel 1 (
 	exit 1
 )
 
-start /B %MSYS2_HOME%\usr\bin\mintty --window hide /usr/bin/bash -l "%~dp0release.sh"
+start /B %MSYS2_HOME%\usr\bin\mintty --window hide /usr/bin/bash -l "%~dp0steam.sh"
 exit
