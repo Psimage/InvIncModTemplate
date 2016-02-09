@@ -4,6 +4,7 @@
 		{
 			"folder_exclude_patterns":
 			[
+				"InvisibleInc"
 			],
 			"path": "."
 		}
